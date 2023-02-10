@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>title</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="box"></div>
+  </body>
+</html>
+<script>
+  fetch("https://fakestoreapi.com/products")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      cart(data);
+    });
+  function cart(data) {
+    let box = document.getElementById("box");
+    let fregment = document.createDocumentFragment();
+    for (var i = 0; i < data.length; i++) {
+      let item = document.createElement("div");
+      item.className = "item";
+
+      let id = document.createElement("div");
+      id.innerText = data[i].id;
+      id.className = "id";
+      item.append(id);
+
+      let title = document.createElement("div");
+      title.innerText = data[i].title;
+      title.className = "title";
+      item.append(title);
+
+      let price = document.createElement("div");
+      price.innerText = data[i].price;
+      price.className = "price";
+      item.append(price);
+
+      let image = document.createElement("img");
+      image.src = data[i].image;
+      image.className = "image";
+      item.append(image);
+
+      let category = document.createElement("div");
+      category.innerText = data[i].category;
+      category.className = "category";
+      item.append(category);
+
+      fregment.append(item);
+    }
+    box.append(fregment);
+  }
+</script>
